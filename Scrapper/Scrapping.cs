@@ -11,14 +11,23 @@ namespace Scrapper
 {
     public class Scrapping
     {
+        // XPATH : 상품 목록
         private readonly string xpathGoodsList = "//div[@id='goodsList']//div[@class='inner_listgoods']//ul[@class='list']/li";
+        // XPATH : 상품 정보가 담긴 엘리먼트
         private readonly string xpathInfoElement = "./div[@class='item']";
+        // XPATH : 상품명
         private readonly string xpathGoodsName = "./a[@class='info']/span[@class='name']";
+        // XPATH : 상품가격
         private readonly string xpathGoodsPrice = "./a[@class='info']//span[@class='price']";
+        // XPATH : 상품 한줄 설명
         private readonly string xpathGoodsDesc = "./a[@class='info']/span[@class='desc']";
+        // XPATH : 상품 썸네일 URL
         private readonly string xpathGoodsThumbnailURL = "./div[@class='thumb']/a[@class='img']/img";
+        // XPATH : 상품 상세중 상품설명 HTML
         private readonly string xpathGoodsDetailDesc = "//div[@id='goods-description']";
+        // XPATH : 목록에서 페이징 엘리먼트
         private readonly string xpathPagerElement = "//div[@class='pagediv']/span/a | //div[@class='pagediv']/span/strong";
+
         private readonly string attributeOuterHTML = "outerHTML";
         private readonly string attributeSrc = "src";
 
@@ -101,7 +110,7 @@ namespace Scrapper
         private void SetGoodsBasicInfo(IWebElement infoElement, GoodsInfo goods)
         {
             goods.Name = infoElement.FindElementByXPath(xpathGoodsName).Text;
-            goods.Price = Utils.GetPriceFromTest(infoElement.FindElementByXPath(xpathGoodsPrice).Text);
+            goods.Price = Utils.GetPriceFromText(infoElement.FindElementByXPath(xpathGoodsPrice).Text);
             goods.Desc = infoElement.FindElementByXPath(xpathGoodsDesc).Text;
             goods.ThumbnailURL = infoElement.FindElementByXPath(xpathGoodsThumbnailURL).GetAttribute(attributeSrc);
         }
